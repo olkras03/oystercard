@@ -14,4 +14,9 @@ describe Oystercard do
   it "should show initial balance as 0" do
     expect(oystercard.balance).to eq(0)
   end
+
+  it "should top up balance" do
+    oystercard.top_up(10)
+    expect(oystercard.balance).to eq(10)
+  end
 end
