@@ -11,4 +11,8 @@ class Oystercard
     raise "Cannot top up : #{LIMIT} reached" if (@balance + amount) > LIMIT
     @balance += amount
   end
+
+  def deduct(amount)
+    @balance -= amount
+  end
 end
