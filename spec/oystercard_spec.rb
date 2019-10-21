@@ -23,4 +23,9 @@ describe Oystercard do
   it "raises an error if top up more then 90" do
     expect { oystercard.top_up(91) }.to raise_error "Cannot top up : #{Oystercard::LIMIT} reached"
   end
+
+  it "deducts money from the card" do
+    oystercard.deduct(5)
+    expect(oystercard.balance).to eq(-5)
+  end
 end
