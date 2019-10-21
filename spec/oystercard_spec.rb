@@ -1,11 +1,17 @@
-require 'oystercard'
+require "oystercard"
 
 describe Oystercard do
-  it 'should be an instance of Oystercard' do
-    expect(subject).to be_instance_of Oystercard
+  let(:oystercard) { Oystercard.new }
+
+  it "should be an instance of Oystercard" do
+    expect(oystercard).to be_instance_of Oystercard
   end
-  
-  it 'should respond to balance' do
-    expect(subject).to respond_to(:balance)
+
+  it "should respond to balance" do
+    expect(oystercard).to respond_to(:balance)
+  end
+
+  it "should show initial balance as 0" do
+    expect(oystercard.balance).to eq(0)
   end
 end
