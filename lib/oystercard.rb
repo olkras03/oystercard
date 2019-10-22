@@ -14,10 +14,6 @@ class Oystercard
     @balance += amount
   end
 
-  def deduct(amount)
-    @balance -= amount
-  end
-
   def touch_in
     raise "Not enough balance" if @balance < MINIMUM_CHARGE
     @in_use = true
@@ -32,7 +28,13 @@ class Oystercard
     return @in_use
   end
 
-  private def over_limit?(amount)
+  private
+
+  def over_limit?(amount)
     return (@balance + amount) > LIMIT
+  end
+
+  def deduct(amount)
+    @balance -= amount
   end
 end
