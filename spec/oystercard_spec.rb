@@ -30,11 +30,16 @@ describe Oystercard do
   end
 
   it "tests card is not in use when it's initialized" do
-    expect(oystercard.in_use).to eq false
+    expect(oystercard).not_to be_in_journey
   end
 
   it "shows if card was touched in" do
     oystercard.touch_in
-    expect(oystercard.in_use).to eq true
+    expect(oystercard).to be_in_journey
+  end
+
+  it "shows if card tas touched out" do
+    oystercard.touch_out
+    expect(oystercard).not_to be_in_journey
   end
 end

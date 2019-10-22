@@ -17,6 +17,14 @@ class Oystercard
     @balance -= amount
   end
 
+  def touch_in
+    @in_use = true
+  end
+
+  def in_journey?
+    return @in_use
+  end
+
   private def over_limit?(amount)
     return (@balance + amount) > LIMIT
   end
