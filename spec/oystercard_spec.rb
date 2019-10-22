@@ -1,7 +1,7 @@
 require "oystercard"
 
 describe Oystercard do
-  let(:oystercard) { Oystercard.new }
+  subject(:oystercard) { Oystercard.new }
 
   it "should be an instance of Oystercard" do
     expect(oystercard).to be_instance_of Oystercard
@@ -27,5 +27,13 @@ describe Oystercard do
   it "deducts money from the card" do
     oystercard.deduct(5)
     expect(oystercard.balance).to eq(-5)
+  end
+
+  it "tests card is not in use when it's initialized" do
+    expect(oystercard.in_use).to eq false
+  end
+
+  it "shows if card was touched in" do
+    expect(oystercard.in_use).to eq true
   end
 end
