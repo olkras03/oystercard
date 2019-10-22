@@ -34,12 +34,25 @@ describe Oystercard do
   end
 
   it "shows if card was touched in" do
+    oystercard.top_up(10)
     oystercard.touch_in
     expect(oystercard).to be_in_journey
   end
 
   it "shows if card tas touched out" do
+    oystercard.top_up(10)
+    oystercard.touch_in
     oystercard.touch_out
     expect(oystercard).not_to be_in_journey
   end
+
+  it "raises exception if balance < £1" do
+    expect{ oystercard.touch_in }.to raise_error "Not enough balance"
+  end
+
+  it "deducts the correct amount from the balance" do
+    oystercard.top_up(10)
+    oystercard.touch_in
+    expect{ oystercard.touch_out }. to change {oystercard.balance}.by(-Oystercard::MINIMUM_CHARGE)
+end
 end
