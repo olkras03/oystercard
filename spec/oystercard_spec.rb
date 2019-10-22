@@ -34,6 +34,7 @@ describe Oystercard do
   end
 
   it "shows if card was touched in" do
+    oystercard.touch_in
     expect(oystercard.in_use).to eq true
   end
 end
