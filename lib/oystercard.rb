@@ -7,6 +7,7 @@ class Oystercard
   def initialize
     @balance = 0
     @in_use = false
+    @entry_station = nil
   end
 
   def top_up(amount)
@@ -14,9 +15,10 @@ class Oystercard
     @balance += amount
   end
 
-  def touch_in
+  def touch_in(station)
     raise "Not enough balance" if @balance < MINIMUM_CHARGE
     @in_use = true
+    @entry_station << station
   end
 
   def touch_out
