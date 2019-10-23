@@ -50,7 +50,7 @@ describe Oystercard do
     oystercard.top_up(10)
     oystercard.touch_in(station)
     expect{ oystercard.touch_out }. to change { oystercard.balance }.by(-Oystercard::MINIMUM_CHARGE)
-end
+  end
 
   it "expects card to remember the entry station" do
     oystercard.top_up(10)
