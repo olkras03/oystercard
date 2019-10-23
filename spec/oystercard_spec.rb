@@ -29,26 +29,26 @@ describe Oystercard do
     expect(oystercard).not_to be_in_journey
   end
 
-  xit "shows if card was touched in" do
+  it "shows if card was touched in" do
     oystercard.top_up(10)
-    oystercard.touch_in
+    oystercard.touch_in(station)
     expect(oystercard).to be_in_journey
   end
 
-  xit "shows if card tas touched out" do
+  it "shows if card tas touched out" do
     oystercard.top_up(10)
-    oystercard.touch_in
+    oystercard.touch_in(station)
     oystercard.touch_out
     expect(oystercard).not_to be_in_journey
   end
 
-  xit "raises exception if balance < £1" do
-    expect{ oystercard.touch_in }.to raise_error "Not enough balance"
+  it "raises exception if balance < £1" do
+    expect{ oystercard.touch_in(station) }.to raise_error "Not enough balance"
   end
 
-  xit "deducts the correct amount from the balance" do
+  it "deducts the correct amount from the balance" do
     oystercard.top_up(10)
-    oystercard.touch_in
+    oystercard.touch_in(station)
     expect{ oystercard.touch_out }. to change { oystercard.balance }.by(-Oystercard::MINIMUM_CHARGE)
 end
 
@@ -56,5 +56,12 @@ end
     oystercard.top_up(10)
     oystercard.touch_in(station)
     expect(oystercard.entry_station).to eq(station)
+  end
+
+  it "expects card the reset to nil" do
+    oystercard.top_up(10)
+    oystercard.touch_in(station)
+    oystercard.touch_out
+    expect(oystercard.entry_station).to eq(nil)
   end
 end
