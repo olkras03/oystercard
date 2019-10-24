@@ -7,6 +7,7 @@ class Oystercard
   def initialize
     @balance = 0
     @entry_station = nil
+    @current_journey = []
     @journeys = []
   end
 
@@ -19,12 +20,15 @@ class Oystercard
     raise "Not enough balance" if @balance < MINIMUM_CHARGE
     @in_use = true
     @entry_station = station
+    @current_journey << @entry_station
   end
 
-  def touch_out
+  def touch_out(station)
     deduct(MINIMUM_CHARGE)
     @in_use = false
     @entry_station = nil
+    @current_journey << station
+    @journeys << @current_journey
   end
 
   def in_journey?

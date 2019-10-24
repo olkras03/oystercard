@@ -32,7 +32,7 @@ describe Oystercard do
 
   it "shows if card was touched in" do
     oystercard.top_up(10)
-    oystercard.touch_in(station)
+    oystercard.touch_in(station1)
     expect(oystercard).to be_in_journey
   end
 
@@ -50,7 +50,7 @@ describe Oystercard do
   it "deducts the correct amount from the balance" do
     oystercard.top_up(10)
     oystercard.touch_in(station1)
-    expect{ oystercard.touch_out }. to change { oystercard.balance }.by(-Oystercard::MINIMUM_CHARGE)
+    expect{ oystercard.touch_out(station2) }. to change { oystercard.balance }.by(-Oystercard::MINIMUM_CHARGE)
   end
 
   it "expects card to remember the entry station" do
