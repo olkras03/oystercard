@@ -74,6 +74,7 @@ describe Oystercard do
     oystercard.top_up(10)
     oystercard.touch_in(station1)
     oystercard.touch_out(station2)
+    p oystercard.journeys
     expect(oystercard.journeys).to include [station1, station2]
   end
 end
