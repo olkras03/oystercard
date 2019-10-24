@@ -64,4 +64,8 @@ describe Oystercard do
     oystercard.touch_out
     expect(oystercard.entry_station).to eq(nil)
   end
+
+  it "checks if card has empty list of journeys" do
+  expect(oystercard.journeys).to be_empty
+  end
 end
