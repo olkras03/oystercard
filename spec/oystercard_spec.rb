@@ -2,7 +2,8 @@ require "oystercard"
 
 describe Oystercard do
   subject(:oystercard) { Oystercard.new }
-  let(:station) {double :entry_station}
+  let(:station1) {double :entry_station}
+  let(:station2) {double :exit_station}
   
   it "should be an instance of Oystercard" do
     expect(oystercard).to be_instance_of Oystercard
@@ -37,35 +38,42 @@ describe Oystercard do
 
   it "shows if card tas touched out" do
     oystercard.top_up(10)
-    oystercard.touch_in(station)
-    oystercard.touch_out
+    oystercard.touch_in(station1)
+    oystercard.touch_out(station2)
     expect(oystercard).not_to be_in_journey
   end
 
   it "raises exception if balance < £1" do
-    expect{ oystercard.touch_in(station) }.to raise_error "Not enough balance"
+    expect{ oystercard.touch_in(station1) }.to raise_error "Not enough balance"
   end
 
   it "deducts the correct amount from the balance" do
     oystercard.top_up(10)
-    oystercard.touch_in(station)
+    oystercard.touch_in(station1)
     expect{ oystercard.touch_out }. to change { oystercard.balance }.by(-Oystercard::MINIMUM_CHARGE)
   end
 
   it "expects card to remember the entry station" do
     oystercard.top_up(10)
-    oystercard.touch_in(station)
-    expect(oystercard.entry_station).to eq(station)
+    oystercard.touch_in(station1)
+    expect(oystercard.entry_station).to eq(station1)
   end
 
   it "expects card the reset to nil" do
     oystercard.top_up(10)
-    oystercard.touch_in(station)
-    oystercard.touch_out
+    oystercard.touch_in(station1)
+    oystercard.touch_out(station2)
     expect(oystercard.entry_station).to eq(nil)
   end
 
   it "checks if card has empty list of journeys" do
   expect(oystercard.journeys).to be_empty
+  end
+
+  it "creates list of journey after touch out" do
+    oystercard.top_up(10)
+    oystercard.touch_in(station1)
+    oystercard.touch_out(station2)
+    expect(oystercard.journeys).to include [station1, station2]
   end
 end
